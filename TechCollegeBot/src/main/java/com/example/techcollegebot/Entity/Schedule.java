@@ -1,6 +1,6 @@
 package com.example.techcollegebot.Entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "schedule")

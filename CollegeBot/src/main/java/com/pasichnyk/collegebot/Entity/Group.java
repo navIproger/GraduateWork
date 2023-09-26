@@ -1,10 +1,13 @@
-package com.example.techcollegebot.Entity;
+package com.pasichnyk.collegebot.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "lessons")
-public class Lesson {
+@Table(name = "classes")
+public class
+Group {
 
     @Id
     @Column(name = "id")
@@ -13,10 +16,13 @@ public class Lesson {
     @Column(name = "name")
     String name;
 
-    public Lesson() {
+    @OneToMany(mappedBy = "group")
+    private List<Schedule> schedules;
+
+    public Group() {
     }
 
-    public Lesson(int id, String name) {
+    public Group(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -35,5 +41,13 @@ public class Lesson {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Class{" +
+                "id = " + id +
+                ", name = '" + name + '\'' +
+                '}';
     }
 }

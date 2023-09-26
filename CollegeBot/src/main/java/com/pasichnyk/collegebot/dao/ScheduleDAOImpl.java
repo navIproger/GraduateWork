@@ -1,7 +1,8 @@
-package com.example.techcollegebot.dao;
+package com.pasichnyk.collegebot.dao;
 
-import com.example.techcollegebot.Entity.Schedule;
-import jakarta.persistence.*;
+import com.pasichnyk.collegebot.Entity.Schedule;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 @Repository
 public class ScheduleDAOImpl implements ScheduleDAO{
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
