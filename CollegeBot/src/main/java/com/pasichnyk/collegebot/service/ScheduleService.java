@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ScheduleService {
     public List<Schedule> getAllSchedule();
+    public List<Schedule> getGroupSchedule(int group);
 }

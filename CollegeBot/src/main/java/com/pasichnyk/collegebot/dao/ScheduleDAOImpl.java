@@ -25,4 +25,14 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 
         return allSchedule;
     }
+
+    @Override
+    public List<Schedule> getGroupSchedule(int group) {
+        Session session = entityManager.unwrap(Session.class);
+
+        Query<Schedule> query = session.createQuery("from Schedule where group = group", Schedule.class);
+        List<Schedule> groupSchedule = query.getResultList();
+
+        return groupSchedule;
+    }
 }

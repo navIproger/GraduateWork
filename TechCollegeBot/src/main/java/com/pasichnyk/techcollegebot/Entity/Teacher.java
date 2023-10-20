@@ -1,6 +1,8 @@
-package com.example.techcollegebot.Entity;
+package com.pasichnyk.techcollegebot.Entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -12,6 +14,9 @@ public class Teacher {
 
     @Column(name = "full_name")
     String fullName;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Schedule> schedules;
 
     public Teacher() {
     }
@@ -35,5 +40,13 @@ public class Teacher {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id = " + id +
+                ", fullName = '" + fullName + '\'' +
+                '}';
     }
 }

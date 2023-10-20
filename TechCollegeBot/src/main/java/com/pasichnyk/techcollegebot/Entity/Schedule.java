@@ -1,4 +1,4 @@
-package com.pasichnyk.collegebot.Entity;
+package com.pasichnyk.techcollegebot.Entity;
 
 import jakarta.persistence.*;
 
@@ -127,6 +127,6 @@ public class Schedule {
     @Override
     public String toString() {
         return "Година: " + timeStart + " - " + timeEnd + " Аудиторія: " + audience + "\n" +
-                "Предмет: " + lesson.name + " Викладач: " + teacher.fullName + "\n\n";
+                "Предмет: " + lesson.name + "\nВикладач: " + teacher.fullName + "\n\n";
     }
 }

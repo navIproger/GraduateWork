@@ -1,5 +1,6 @@
 package com.pasichnyk.collegebot.bot;
 
+import com.pasichnyk.collegebot.CollegeBotApplication;
 import com.pasichnyk.collegebot.Entity.Schedule;
 import com.pasichnyk.collegebot.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,6 @@ import java.util.List;
 @Component
 public class CollegeBot extends TelegramLongPollingBot {
 
-    @Autowired
-    private ScheduleService scheduleService;
-
-    private List<Schedule> schedules;
-
     public String getBotToken() {
         return "6302338815:AAFcN25ObYsCLXsFswIkrAkB_5-AuoPXsRM";
     }
@@ -30,8 +26,6 @@ public class CollegeBot extends TelegramLongPollingBot {
     }
 
     public void onUpdateReceived(Update update) {
-//        schedules = CollegeBotApplication.schedules;
-        System.out.println(scheduleService == null);
         if (update.hasMessage() && update.getMessage().hasText()){
             String message = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
@@ -40,7 +34,6 @@ public class CollegeBot extends TelegramLongPollingBot {
 
             if(message.startsWith("/start")){
                 sendMessage.setText("Вас вітає, телеграм бот ВСП Технічного Фахового Коледжу Національного Університету 'Львівська Політехніка'");
-                sendMessage.setText(schedules.toString());
             }
 
             try {

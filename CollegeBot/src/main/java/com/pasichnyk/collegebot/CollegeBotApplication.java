@@ -1,7 +1,8 @@
 package com.pasichnyk.collegebot;
 
 import com.pasichnyk.collegebot.Entity.Schedule;
-import com.pasichnyk.collegebot.bot.CollegeBot;
+import com.pasichnyk.collegebot.function.ForClass;
+import com.pasichnyk.collegebot.function.ForSchedule;
 import com.pasichnyk.collegebot.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,10 +22,13 @@ public class CollegeBotApplication extends TelegramLongPollingBot implements Com
 
     @Autowired
     private ScheduleService scheduleService;
+    @Autowired
+    private ForClass forClass;
+    @Autowired
+    private ForSchedule forSchedule;
 
-    private static ScheduleService scheduleServiceCopy;
-    public static List<Schedule> schedules;
 
+    private static List<Schedule> schedules;
     public static void main(String[] args) {
         SpringApplication.run(CollegeBotApplication.class, args);
     }
@@ -37,20 +41,14 @@ public class CollegeBotApplication extends TelegramLongPollingBot implements Com
         } catch (TelegramApiException e){
             e.printStackTrace();
         }
-        scheduleServiceCopy = scheduleService;
     }
-
     public String getBotToken() {
         return "6302338815:AAFcN25ObYsCLXsFswIkrAkB_5-AuoPXsRM";
     }
-
     public String getBotUsername() {
         return "techcollege_bot";
     }
-
     public void onUpdateReceived(Update update) {
-        schedules = scheduleServiceCopy.getAllSchedule();
-        System.out.println(schedules);
         if (update.hasMessage() && update.getMessage().hasText()){
             String message = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
@@ -61,10 +59,9 @@ public class CollegeBotApplication extends TelegramLongPollingBot implements Com
             if(message.startsWith("/start")){
                 sendMessage.setText("Вас вітає, телеграм бот ВСП Технічного Фахового Коледжу Національного Університету 'Львівська Політехніка'");
             } else if (message.startsWith("/getSchedule")) {
-                sendMessage.setText(schedules.toString());
+                schedules = scheduleService.getGroupSchedule(411);
+                sendMessage.setText(forSchedule.createStringWithSchedule(schedules, 1));
             }
-
-
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e){
